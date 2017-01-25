@@ -1,6 +1,6 @@
-var form = $('#search-film');
-var search_field = $('#search-film-input');
-var results = $('#results');
+var form = $('#search-film'),
+    search_field = $('#search-film-input'),
+    results = $('#results');
 
 form.on('submit', function(e) {
   e.preventDefault();
@@ -9,11 +9,15 @@ form.on('submit', function(e) {
   $.get(url_search, function(response) {
     results.empty();
     $.each(response.Search, function(index, item) {
-      $('<div />')
-        .append($('<h4 />').html(item.Title))
+      $('<div class="item" />')
         .append($('<img />').attr('src', item.Poster))
-        .append($('<hr />'))
+        .append($('<h4 />').html(item.Title))
+        .append($('<h4 />').html(item.Year))
+        .append($('<h4 />').html(item.Type))
+        .append($('<h4 />').html(item.imdbID))
         .appendTo(results);
+      $('#results').append("<br clear='all'>");
+      $('body').addClass('search');
     });
   });
 });
